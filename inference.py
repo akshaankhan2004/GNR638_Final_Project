@@ -3,16 +3,12 @@
 GNR638 Project – Map Reconstruction + VQA
 ==========================================
 
-Grader calls:
-    cd ./your_directory
-    python inference.py --test_dir <absolute_path_to_test_dir>
-
 Expected test_dir layout:
     patches/        patch_0.png, patch_1.png, …   (patch_0 is top-left anchor)
-    test.csv        columns: id, question, option_1, option_2, option_3, option_4
+    test.csv        columns: id, question, option_1, option_2, option_3, option_4, option_5
 
 Writes:
-    ./submission.csv   (in the current working directory – NOT inside test_dir)
+    ./submission.csv
 """
 
 import argparse
@@ -29,7 +25,6 @@ from PIL import Image
 from transformers import AutoProcessor, Qwen2_5_VLForConditionalGeneration
 
 # ─────────────────────────────────────────────────────────────────────────────
-# Model path – must match MODEL_DIR in setup.bash
 # setup.bash downloads to: $HOME/models/qwen25vl-3b
 # ─────────────────────────────────────────────────────────────────────────────
 MODEL_PATH = Path.home() / "models" / "qwen25vl-3b"
@@ -43,9 +38,8 @@ args = parser.parse_args()
 TEST_DIR    = Path(args.test_dir)
 PATCHES_DIR = TEST_DIR / "patches"
 TEST_CSV    = TEST_DIR / "test.csv"
-OUTPUT_CSV  = Path("submission.csv")   # written in CWD (where grader calls us from)
+OUTPUT_CSV  = Path("submission.csv")
 
-# ── Startup banner ────────────────────────────────────────────────────────────
 print("=" * 65)
 print("  GNR638 Project – Map Reconstruction + VQA")
 print("=" * 65)
