@@ -78,7 +78,8 @@ conda create -y -n "$ENV_NAME" python="$PYTHON_VER"
 
 # Activate inside this shell
 # shellcheck disable=SC1091
-source "$(conda info --base)/etc/profile.d/conda.sh"
+CONDA_BASE="$(conda info --base)"
+source "${CONDA_BASE}/etc/profile.d/conda.sh"
 conda activate "$ENV_NAME"
 
 echo "  Active env : $CONDA_DEFAULT_ENV"
