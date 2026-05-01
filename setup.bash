@@ -21,7 +21,6 @@
 
 set -e
 set -o pipefail
-source ~/.bashrc
 
 # ── CONFIG – only line you need to change ────────────────────────────────────
 REPO_URL="https://github.com/akshaankhan2004/GNR638_Final_Project.git"   # ← CHANGE THIS
