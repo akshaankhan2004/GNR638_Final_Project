@@ -110,9 +110,9 @@ print(f"  {N} patches  size={pw}x{ph}")
 
 # ── Algorithm parameters (same as notebook) ───────────────────────────────────
 MAX_OVERLAP_SEARCH      = min(pw // 2, 64)
-CONF_THRESHOLD          = 0.3
-CONF_THRESHOLD_INTERIOR = 0.2
-MIN_GAP                 = 0.05
+CONF_THRESHOLD          = 0.2
+CONF_THRESHOLD_INTERIOR = 0.15
+MIN_GAP                 = 0.02
 COL_EXT_THRESHOLD       = 0.3
 COL_EXT_MIN_AGREE       = 0.75
 
@@ -418,7 +418,10 @@ if remaining:
         _cy = _pr * _sy + (_mov if _pr > 0 else 0)
         _ph2, _pw2 = _pi.shape[:2]
         if 0 <= _cx < _cw and 0 <= _cy < _ch:
-            partial[_cy:_cy+_ph2, _cx:_cx+_pw2] = _pi
+            cx1 = min(_cx + _pw2, _cw)
+            cy1 = min(_cy + _ph2, _ch)
+            
+            partial[_cy:cy1, _cx:cx1] = _pi[:cy1 - _cy, :cx1 - _cx]
 
     _HIST_BINS  = 16
     _GRAD_BINS  = 8
