@@ -71,7 +71,6 @@ t_start = time.time()
 # =============================================================================
 # PART 1 – MAP STITCHING
 # GPU-accelerated Normalised Cross-Correlation (NCC) on gradient images.
-# Logic mirrors the v9 notebook exactly.
 # =============================================================================
 
 # ── Helpers ───────────────────────────────────────────────────────────────────
@@ -102,7 +101,7 @@ N           = len(patches)
 ph, pw      = patches["patch_0"].shape[:2]
 print(f"  {N} patches  size={pw}x{ph}")
 
-# ── Algorithm parameters (same as notebook) ───────────────────────────────────
+# ── Algorithm parameters  ───────────────────────────────────
 MAX_OVERLAP_SEARCH      = min(pw // 2, 64)
 CONF_THRESHOLD          = 0.2
 CONF_THRESHOLD_INTERIOR = 0.15
@@ -390,7 +389,7 @@ if remaining:
         ROW_LEN += 1
         if not remaining: break
 
-# ── Offline image-processing fallback (Step 5 from notebook) ──────────────────
+# ── Offline image-processing fallback ──────────────────
 if remaining:
     print(f"\n  Offline fallback for {len(remaining)} unplaced patches ...")
 
@@ -527,7 +526,7 @@ if remaining:
         print(f"  NCC+Desc: {name} -> ({tc},{tr}) k={k} score={score:.3f}")
         if not remaining: break
 
-    # Absolute last resort – should never fire
+    # Absolute last resort
     empty_final = [(c, r) for c in range(ROW_LEN) for r in range(COL_LEN)
                    if (c, r) not in grid]
     for name in list(remaining):
@@ -584,7 +583,7 @@ total_px = cw * ch
 print(f"  Saved → {MAP_PATH}  shape={canvas.shape}")
 print(f"  Black pixels: {black_px}/{total_px} ({100*black_px/total_px:.2f}%)")
 
-# Print grid layout (same as notebook)
+# Print grid layout
 ARROWS = "↑→↓←"
 print(f"\n  Grid layout ({max_col+1}×{max_row+1}):")
 for r in range(max_row + 1):
@@ -607,8 +606,6 @@ torch.cuda.empty_cache()
 
 # =============================================================================
 # PART 2 – VQA with Qwen2.5-VL-3B-Instruct
-# Model loaded from disk (no internet needed at this point).
-# Architecture: Qwen2_5_VLForConditionalGeneration (same as Qwen3-VL-4B Kaggle)
 # =============================================================================
 print("\n[5/6] Loading Qwen2.5-VL from disk (no internet) ...")
 
