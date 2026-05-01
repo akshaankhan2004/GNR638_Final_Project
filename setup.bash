@@ -23,7 +23,7 @@ set -e
 set -o pipefail
 
 # ── CONFIG – only line you need to change ────────────────────────────────────
-REPO_URL="https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git"   # ← CHANGE THIS
+REPO_URL="https://github.com/akshaankhan2004/GNR638_Final_Project.git"   # ← CHANGE THIS
 # ─────────────────────────────────────────────────────────────────────────────
 
 ENV_NAME="gnr_project_env"
